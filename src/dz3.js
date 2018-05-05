@@ -83,16 +83,18 @@ function isSomeTrue(array, fn) {
  */
 function returnBadArguments(fn) {
 	if (typeof fn != 'function') {
-		throw new Error("fn is not a function")
+		throw Error('fn is not a function');
 	}
 	const newArr = []
 	for (let i = 1; i < arguments.length; i++) {
-		fn(arguments[i]) 
+		try {
+			fn(arguments[i])
+		}	catch(e) {
+			newArr.push(arguments[i])
+		}
+
 	}
-
-	
-
-	return arguments 
+	return newArr
 }
 
 /*
@@ -112,7 +114,42 @@ function returnBadArguments(fn) {
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
+function calculator(number=0) {
+	if (isNaN(number)) {
+		throw Error('number is not a number');
+	}
+	const obj = {
+		sum: function() {
+			for (let i = 0; i < arguments.length; i++) {
+				number += arguments[i];
+			}
+		return number;
+		},
+		dif: function() {
+			for (let i = 0; i < arguments.length; i++) { 
+				number -= arguments[i];
+			}
+			return number;
+		},
+		div: function() {
+			
+			for (let i = 0; i < arguments.length; i++) { 
+				if (arguments[i] == 0) {
+					throw Error('division by 0');
+				}
+				number /= arguments[i];
+			}
+			return number;
+		},
+		mul: function() {
+			for (let i = 0; i < arguments.length; i++) { 
+				number *= arguments[i];
+			}
+			return number;
+		}
+
+	}
+	return obj
 }
 
 /* При решении задач, пострайтесь использовать отладчик */

@@ -177,8 +177,7 @@ describe('ДЗ 2 - объекты и массивы', () => {
             let result = slice(array);
 
             assert.deepEqual(result, target);
-
-            target = nativeSlice.call(array, 0);
+                        target = nativeSlice.call(array, 0);
             result = slice(array, 0);
             assert.deepEqual(result, target);
 

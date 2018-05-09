@@ -119,12 +119,18 @@ function calculator(number=0) {
 		throw Error('number is not a number');
 	}
 	const obj = {
-		sum: function() {
-			for (let i = 0; i < arguments.length; i++) {
-				number += arguments[i];
-			}
-		return number;
-		},
+		// sum: function() {
+		// 	for (let i = 0; i < arguments.length; i++) {
+		// 		number += arguments[i];
+		// 	}
+		// return number;
+		// },
+	
+		sum: function(...args){
+			return args.reduce((previous, current) => previous + current, number)
+		}
+		,
+
 		dif: function() {
 			for (let i = 0; i < arguments.length; i++) { 
 				number -= arguments[i];

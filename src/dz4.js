@@ -49,37 +49,11 @@ where.insertBefore(what, theFirstChild);
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 
-
-// function findAllPSiblings(where) {
-// 	const newArr = []
-// 	for (let i = 0; i < where.children.length; i++ ) {
-
-// 		if (where.children[i].previousElementSibling.tagName == 'P' || where.children[i].nextElementSibling.tagName == "P") {
-// 			newArr.push(where.children[i])
-// 		}
-// 	}
-
-// 	return newArr
-// }-фщзд
-
-// function findAllPSiblings(where) {
-// 	const newArr = []
-// 	for (let i = 0; i < where.children.length; i++ ) {
-
-// 		if (where.children[i].tagName == 'p') {
-// 			newArr.push(where.children[i].previousSibling.tagName, where.children[i].nextSibling.tagName)
-// 		}
-// 	}
-// 	return newArr
-// }
-
 function findAllPSiblings(where) {
 	const newArr = []
 	let elems = where.children
 	for (let i = 0; i < elems.length; i++){
-	
-		if ((elems[i].nextElementSibling && elems[i].nextElementSibling.tagName == "P") || (elems[i].previousElementSibling && elems[i].previousElementSibling.tagName == "P")) {
-			
+		if (elems[i].nextElementSibling && elems[i].nextElementSibling.tagName == "P") {
 			newArr.push(elems[i])
 		}
 	
@@ -105,9 +79,9 @@ function findAllPSiblings(where) {
    findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftschool'
  */
 function findError(where) {
-    var result = [];
+    let result = [];
 
-    for (var child of where.children) {
+    for (let child of where.children) {
         result.push(child.textContent);
     }
 
@@ -128,7 +102,9 @@ function findError(where) {
  */
 function deleteTextNodes(where) {
 	for (let elem of where.childNodes) {
-		elem.textContent = ''
+    if (elem.nodeType == 3) {
+      where.removeChild(elem)
+    }
 	}
 }
 
@@ -145,24 +121,12 @@ function deleteTextNodes(where) {
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 
-// function deleteTextNodesRecursive(where) {
-// 	let elems = where.getElementsByTagName('*')
-	
-// 	for (let elem of elems) {
-// 		if (elem.nodeType == 3) {
-// 			elem.parentNode.removeChild(elem)
-// 		}
-// 	}
-// }
-
 function deleteTextNodesRecursive(where) {
-	let elems = where.getElementsByTagName('*')
-	
-	elems.textContent = ''
-
-	if (elems.childNodes) {
-
-	}
+  for (let elem of where.children) {
+    deleteTextNodesRecursive(elem)
+  }
+  
+  deleteTextNodes(where)
 }
 
 /*

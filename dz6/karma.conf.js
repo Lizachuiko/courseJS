@@ -5,7 +5,7 @@ module.exports = function(config) {
         basePath: '',
         frameworks: ['mocha', 'chai'],
         files: [
-            'test/**/dz5.js'
+            'test/**/*.js'
         ],
         preprocessors: {
             'test/**/*.js': ['webpack', 'sourcemap'],
